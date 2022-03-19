@@ -1,2 +1,4 @@
-# Вход только для Яромира, Степана и Семёна
-This is somehing steve added
+#ARKANOID 2
+##How to run?
+In root navigate main.py and just run it:
+python3 main.py
