@@ -40,6 +40,16 @@ def collisionRect(X1, Y1, W1, H1, X2, Y2, W2, H2):
     return rect1.colliderect(rect2)
 
 
+def arrowLeft():
+    key = pygame.key.get_pressed()
+    return key[pygame.K_LEFT]
+
+
+def arrowRight():
+    key = pygame.key.get_pressed()
+    return key[pygame.K_RIGHT]
+
+
 def cycle(running):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
