@@ -41,7 +41,7 @@ def moveSlider(slider, speedSlider, width):
         slider.right += speedSlider
 
 # эта штука чекает столкновение с слайдером
-def collisionSlider(slider, ball):
+def ballcCollisionSlider(slider, ball):
     ball.collidirect(slider)
 
 
