@@ -33,16 +33,10 @@ def drawCircle(colorCircle, colorXY, Rad):
     pygame.draw.circle(screen, colorCircle, colorXY, Rad)
 
 
-def moveSlider(slider, speedSlider, width):
-    key = pygame.key.get_pressed()
-    if key[pygame.K_LEFT] and slider.left > 0:
-        slider.left -= speedSlider
-    if key[pygame.K_RIGHT] and slider.right < width:
-        slider.right += speedSlider
-
-# эта штука чекает столкновение с слайдером
-def ballcCollisionSlider(slider, ball):
-    ball.collidirect(slider)
+def collisionRect(X1, Y1, W1, H1, X2, Y2, W2, H2):
+    rect1 = pygame.Rect(X1, Y1, W1, H1)
+    rect2 = pygame.Rect(X2, Y2, W2, H2)
+    return rect1.colliderect(rect2)
 
 
 def cycle(running):
