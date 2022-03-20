@@ -15,7 +15,7 @@ def drawRect(rectColor, rectXYWH):
     pygame.display.update()  # вот это под сомнениями
 
 
-def drawText(text, textColor, sizeColor, typeText, x, y):
+def drawText(text, textColor, sizeFont, typeText, x, y):
     global screen
     font = pygame.font.SysFont(typeText, sizeColor)
     img = font.render(text, True, textColor)
