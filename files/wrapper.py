@@ -39,3 +39,15 @@ def moveSlider(slider, speedSlider, width):
         slider.left -= speedSlider
     if key[pygame.K_RIGHT] and slider.right < width:
         slider.right += speedSlider
+
+def cycle(running):
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    pygame.display.update()
+
+def quit():
+    pygame.quit()
+
