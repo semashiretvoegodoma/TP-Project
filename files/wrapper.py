@@ -1,44 +1,32 @@
 import pygame
 
-# это отвечает за инициализацию pygame
-pygame.init()
 
-#отвечает за экран
-screen_width = 800
-screen_height = 800
-screen = pygame.display.set_mode((screen_width, screen_height))
+def createScreen(width, height, path):
+    global screen
+    screen = pygame.display.set_mode((width, height))
+    pygame.display.set_caption("Arkanoid3000")
+    image = pygame.image.load(path)
+    pygame.display.set_icon(image)
 
-brick_color = (50, 50, 50)
-brick_xy_wh = (100, 100, 30, 10)
 
-def draw_text(text, font, text_color, x, y):
-    img = font.render(text, True, text_color)
+def drawRect(rectColor, rectXYWH):
+    global screen
+    pygame.draw.rect(screen, rectColor, rectXYWH)
+    pygame.display.update()  # вот это под сомнениями
+
+
+def drawText(text, font, textColor, x, y):
+    global screen
+    img = font.render(text, True, textColor)
     screen.blit(img, (x, y))
 
 
-def background_screen(R, G, B):
+def colorScreen(R, G, B):
+    global screen
     background = (R, G, B)
     screen.fill(background)
 
 
-def brick(screen, brick_color, brick_xy_wh):
-    def draw_rectangle():
-        pygame.draw.rect(screen, brick_color, brick_xy_wh)
-
-brick(screen, brick_color, brick_xy_wh)
-
-T = True
-while T:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            T = False
-
-    pygame.display.update()
-
-pygame.quit()
-
-def slider():
-    ///...
-
-def ball():
-    ...
+def drawCircle(colorCircle, colorXY, Rad):
+    global screen
+    pygame.draw.circle(screen, colorCircle, colorXY, Rad)
