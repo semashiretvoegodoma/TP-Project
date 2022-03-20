@@ -1,3 +1,6 @@
+from Ball import Ball
+from Slider import Slider
+from Brick import brick
 
 
 class GameplayPlayState(object):
@@ -17,3 +20,15 @@ class GameplayPlayState(object):
             for j in range(0, 10):
                 self.bricks.append(Brick(300 + 70 * i, 30 * j, 70, 30))
 
+
+    def update(self):
+        self.ball.update()
+        for brick in self.bricks:
+            brick.update()
+        self.slider.update()
+
+    def draw(self):
+        self.ball.draw()
+        for brick in self.draw:
+            brick.draw()
+        self.slider.draw()
