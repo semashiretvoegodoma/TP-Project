@@ -5,6 +5,7 @@ def createScreen(width, height):
     global screen
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Arkanoid3000")
+    pygame.font.init()
     # image = pygame.image.load(path)
     # pygame.display.set_icon(image)
 
@@ -42,7 +43,7 @@ def collisionRect(X1, Y1, W1, H1, X2, Y2, W2, H2):
 def cycle(running):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            running[0] = False
 
     pygame.display.update()
 

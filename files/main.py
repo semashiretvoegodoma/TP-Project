@@ -3,7 +3,7 @@ from currentScene import CurrentScene
 
 screen_width = 1300
 screen_height = 700
-wrapper.createScreen((screen_width, screen_height))
+wrapper.createScreen(screen_width, screen_height)
 
 currentScene = CurrentScene()
 
@@ -15,6 +15,8 @@ while running:
     wrapper.colorScreen(255, 255, 255)
     currentScene.draw()
 
-    wrapper.cycle()
+    temp = [running]
+    wrapper.cycle(temp)
+    running = temp[0]
 
 wrapper.quit()

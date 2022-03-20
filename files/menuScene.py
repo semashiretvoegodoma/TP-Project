@@ -1,16 +1,16 @@
 import wrapper
 import scene
 from button import Button
-from currentScene import CurrentScene
+import currentScene
 
 
 class MenuScene(scene.Scene):
-    def __init__(self, currentScene):
+    def __init__(self, curScene):
         self.playButton = Button((1300 / 2) - 50, 300, 100, 30, "Play")
         self.playButton.addActionReceiver(self)
         self.quitButton = Button((1300 / 2) - 50, 400, 100, 30, "Quit")
         self.quitButton.addActionReceiver(self)
-        self.currentScene = currentScene
+        self.currentScene = curScene
 
     def draw(self):
         self.playButton.draw()
@@ -21,7 +21,7 @@ class MenuScene(scene.Scene):
         self.quitButton.update()
 
     def toLevels(self):
-        self.currentScene.state = CurrentScene.SCENE_LEVELS
+        self.currentScene.state = currentScene.CurrentScene.SCENE_LEVELS
 
     def ExitGame(self):
         wrapper.quit()

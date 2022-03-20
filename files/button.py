@@ -9,7 +9,7 @@ class Button(object):
         self.width = width
         self.height = height
         self.text = text
-        self.actionRecievers = {}
+        self.actionReceivers = set()
 
     def addActionReceiver(self, actionReceiver):
         self.actionReceivers.add(actionReceiver)
@@ -18,8 +18,9 @@ class Button(object):
         self.actionReceivers.discard(actionReceiver)
 
     def update(self):
-        raise NotImplementedError
+        pass
+        # raise NotImplementedError
 
     def draw(self):
-        drawRect((150, 150, 150), (self.x, self.y, self.width. self.height))
-        drawText(self.text, (0, 0, 0), self.x, self.y)
+        drawRect((150, 150, 150), (self.x, self.y, self.width, self.height))
+        drawText(self.text, (0, 0, 0), 36, "Arial", self.x, self.y)
