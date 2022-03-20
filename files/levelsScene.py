@@ -1,6 +1,9 @@
-import current_scene
+import scene
 
-class levels_scene():
-    ...
 
-    def
+class LevelsScene(scene.Scene):
+    def draw(self):
+        pass
+
+    def update(self):
+        pass

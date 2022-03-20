@@ -1,9 +1,9 @@
-import current_scene
+import scene
 
-class gameplay_scene():
 
-    def reset(self):
-        ...
+class GameplayScene(scene.Scene):
+    def draw(self):
+        pass
 
-    def change_level(self):
-        ...
+    def update(self):
+        pass

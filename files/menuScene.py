@@ -1,4 +1,9 @@
-import current_scene
+import scene
 
-class menu_scene():
-    ...
+
+class MenuScene(scene.Scene):
+    def draw(self):
+        pass
+
+    def update(self):
+        pass

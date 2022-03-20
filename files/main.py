@@ -1,5 +1,5 @@
 import pygame
-import current_scene
+from currentScene import CurrentScene
 
 #отвечает за экран
 screen_width = 1300
@@ -10,25 +10,25 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Arkanoid3000")
 
 #отвечает за иконку, она находится слева сверху
-image = pygame.image.load("Arkanoid.png")
-pygame.display.set_icon(image)
+#image = pygame.image.load("Arkanoid.png")
+#pygame.display.set_icon(image)
 
 # цвет текста
 text_color = (0, 0, 0)
 
-///...
-
+currentScene = CurrentScene()
 
 # это отвечает за выход из игры нажатием на крестик
 # также за обновление экрана
-T = True
-while T:
+running = True
+while running:
 
-    current_scene()
+    currentScene.update()
+    currentScene.draw()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            T = False
+            running = False
 
     pygame.display.update()
 

@@ -1,6 +1,9 @@
-import current_scene
+import scene
 
-class final_scene():
-    ...
 
-    def
+class FinalWinScene(scene.Scene):
+    def draw(self):
+        pass
+
+    def update(self):
+        pass
