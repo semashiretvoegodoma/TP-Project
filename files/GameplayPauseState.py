@@ -1,0 +1,2 @@
+class GameplayPauseState(object):
+    pass

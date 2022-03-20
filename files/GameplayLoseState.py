@@ -1,0 +1,2 @@
+class GameplayLoseState(object):
+    pass
