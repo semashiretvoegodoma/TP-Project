@@ -1,12 +1,12 @@
 import pygame
 
 
-def createScreen(width, height, path):
+def createScreen(width, height):
     global screen
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Arkanoid3000")
-    image = pygame.image.load(path)
-    pygame.display.set_icon(image)
+    # image = pygame.image.load(path)
+    # pygame.display.set_icon(image)
 
 
 def drawRect(rectColor, rectXYWH):
