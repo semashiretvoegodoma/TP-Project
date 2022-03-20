@@ -1,6 +1,6 @@
 from Ball import Ball
 from Slider import Slider
-from Brick import brick
+from Brick import Brick
 
 
 class GameplayPlayState(object):
