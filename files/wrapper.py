@@ -15,8 +15,9 @@ def drawRect(rectColor, rectXYWH):
     pygame.display.update()  # вот это под сомнениями
 
 
-def drawText(text, font, textColor, x, y):
+def drawText(text, textColor, sizeColor, typeText, x, y):
     global screen
+    font = pygame.font.SysFont(typeText, sizeColor)
     img = font.render(text, True, textColor)
     screen.blit(img, (x, y))
 
@@ -30,3 +31,11 @@ def colorScreen(R, G, B):
 def drawCircle(colorCircle, colorXY, Rad):
     global screen
     pygame.draw.circle(screen, colorCircle, colorXY, Rad)
+
+
+def moveSlider(slider, speedSlider, width):
+    key = pygame.key.get_pressed()
+    if key[pygame.K_LEFT] and slider.left > 0:
+        slider.left -= speedSlider
+    if key[pygame.K_RIGHT] and slider.right < width:
+        slider.right += speedSlider
