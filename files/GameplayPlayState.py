@@ -29,6 +29,6 @@ class GameplayPlayState(object):
 
     def draw(self):
         self.ball.draw()
+        self.slider.draw()
         for brick in self.bricks:
             brick.draw()
-        self.slider.draw()
