@@ -17,7 +17,7 @@ def drawRect(rectColor, rectXYWH):
 
 def drawText(text, textColor, sizeFont, typeText, x, y):
     global screen
-    font = pygame.font.SysFont(typeText, sizeColor)
+    font = pygame.font.SysFont(typeText, sizeFont)
     img = font.render(text, True, textColor)
     screen.blit(img, (x, y))
 
