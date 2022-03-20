@@ -1,2 +1,2 @@
-class GameplayPlayState(object):
+class GameplayWinState(object):
     pass

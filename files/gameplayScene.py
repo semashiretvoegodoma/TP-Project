@@ -14,9 +14,9 @@ class GameplayScene(scene.Scene):
     def __init__(self):
         self.state = GameplayScene.STATE_PLAY
         self.play = GameplayPlayState()
-        self.pause = GameplayPlayState()
-        self.win = GameplayPlayState()
-        self.lose = GameplayPlayState()
+        self.pause = GameplayPauseState()
+        self.win = GameplayWinState()
+        self.lose = GameplayPauseState()
         self.gameplaySceneState = {
             self.STATE_PLAY: self.play,
             self.STATE_PAUSE: self.pause,
@@ -25,7 +25,8 @@ class GameplayScene(scene.Scene):
         }
 
     def startLevel(self, levelNum):
-
+        self.state = GameplayScene.STATE_PLAY
+        self.play.buildLevel()
 
     def draw(self):
         pass
