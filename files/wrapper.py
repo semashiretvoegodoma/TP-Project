@@ -50,6 +50,19 @@ def arrowRight():
     return key[pygame.K_RIGHT]
 
 
+def mouseInButton(X1, Y1, W1, H1):
+    rect = pygame.Rect(X1, Y1, W1, H1)
+    point = pygame.mouse.get_pos()
+    if rect.collidepoint(point):
+        return 1
+
+
+def dotInRect(X1, Y1, W1, H1, dotx, doty):
+    if X1 + W1 <= dotx <= X1 and Y1 + H1 <= doty <= Y1:
+        return 1
+    return 0
+
+
 def cycle(running):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
