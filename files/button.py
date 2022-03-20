@@ -22,4 +22,4 @@ class Button(object):
 
     def draw(self):
         drawRect((150, 150, 150), (self.x, self.y, self.width. self.height))
-        drawText(self.text, )
+        drawText(self.text, (0, 0, 0), self.x, self.y)

@@ -13,7 +13,7 @@ class CurrentScene(Scene):
 
     def __init__(self):
         self.state = CurrentScene.SCENE_MENU
-        self.menuScene = MenuScene()
+        self.menuScene = MenuScene(self)
         self.levelsScene = LevelsScene()
         self.gameplayScene = GameplayScene()
         self.finalWinScene = FinalWinScene()

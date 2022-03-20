@@ -1,7 +1,6 @@
 import wrapper
 from currentScene import CurrentScene
 
-#отвечает за экран
 screen_width = 1300
 screen_height = 700
 wrapper.createScreen((screen_width, screen_height))
@@ -13,12 +12,9 @@ running = True
 while running:
 
     currentScene.update()
+    wrapper.colorScreen(255, 255, 255)
     currentScene.draw()
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    wrapper.cycle()
 
-    pygame.display.update()
-
-pygame.quit()
+wrapper.quit()
