@@ -6,8 +6,10 @@ import currentScene
 
 class LevelsScene(scene.Scene):
     def __init__(self, curScene, gpScene):
-        self.levelsButtons = [Button(700, 20, 200, 50, "level 1")]
-        self.backButton = Button(700, 100, 200, 50, "back")
+        self.levelsButtons = [Button(700, 20, 200, 50, "level 1", "level")]
+        self.levelsButtons[0].addActionReceiver(self)
+        self.backButton = Button(700, 100, 200, 50, "back", "menu")
+        self.backButton.addActionReceiver(self)
         self.gameplayScene = gpScene
         self.curScene = curScene
 

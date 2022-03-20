@@ -9,7 +9,10 @@ class Slider(object):
         self.height = height
 
     def update(self):
-        pass
+        if wrapper.arrowLeft():
+            self.x -= 3
+        if wrapper.arrowRight():
+            self.x += 3
 
     def draw(self):
         wrapper.drawRect((40, 240, 75), (self.x, self.y, self.width, self.height))

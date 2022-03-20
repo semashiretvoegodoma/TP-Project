@@ -29,7 +29,7 @@ class GameplayScene(scene.Scene):
         self.play.buildLevel()
 
     def draw(self):
-        pass
+        self.gameplaySceneState[self.state].draw()
 
     def update(self):
-        pass
+        self.gameplaySceneState[self.state].update()

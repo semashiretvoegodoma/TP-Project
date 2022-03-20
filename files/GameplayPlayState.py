@@ -22,13 +22,13 @@ class GameplayPlayState(object):
 
 
     def update(self):
-        self.ball.update()
+        self.ball.update(self.bricks, self.slider)
         for brick in self.bricks:
-            brick.update()
+            brick.update(self.ball)
         self.slider.update()
 
     def draw(self):
         self.ball.draw()
-        for brick in self.draw:
+        for brick in self.bricks:
             brick.draw()
         self.slider.draw()

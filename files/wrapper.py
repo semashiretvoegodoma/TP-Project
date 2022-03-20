@@ -1,5 +1,6 @@
 import pygame
 
+mouse_down = False
 
 def createScreen(width, height):
     global screen
@@ -29,9 +30,9 @@ def colorScreen(R, G, B):
     screen.fill(background)
 
 
-def drawCircle(colorCircle, colorXY, Rad):
+def drawCircle(colorCircle, pos, Rad):
     global screen
-    pygame.draw.circle(screen, colorCircle, colorXY, Rad)
+    pygame.draw.circle(screen, colorCircle, pos, Rad)
 
 
 def collisionRect(X1, Y1, W1, H1, X2, Y2, W2, H2):
@@ -64,11 +65,20 @@ def dotInRect(X1, Y1, W1, H1, dotx, doty):
 
 
 def cycle(running):
+    global mouse_down
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_down = True
+        elif event.type == pygame.MOUSEBUTTONUP:
+            mouse_down = False
 
     pygame.display.update()
+
+
+def isMousePressed():
+    return mouse_down
 
 
 def quit():

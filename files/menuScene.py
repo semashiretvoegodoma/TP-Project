@@ -6,9 +6,9 @@ import currentScene
 
 class MenuScene(scene.Scene):
     def __init__(self, curScene):
-        self.playButton = Button((1300 / 2) - 50, 300, 100, 30, "Play")
+        self.playButton = Button((1300 / 2) - 50, 300, 100, 30, "Play", "play")
         self.playButton.addActionReceiver(self)
-        self.quitButton = Button((1300 / 2) - 50, 400, 100, 30, "Quit")
+        self.quitButton = Button((1300 / 2) - 50, 400, 100, 30, "Quit", "quit")
         self.quitButton.addActionReceiver(self)
         self.currentScene = curScene
 
