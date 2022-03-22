@@ -1,6 +1,9 @@
+import time
+
 import pygame
 
 mouse_down = False
+lastFrame = time.time()
 
 def createScreen(width, height):
     global screen
@@ -14,7 +17,7 @@ def createScreen(width, height):
 def drawRect(rectColor, rectXYWH):
     global screen
     pygame.draw.rect(screen, rectColor, rectXYWH)
-    pygame.display.update()  # вот это под сомнениями
+    # pygame.display.update()  # вот это под сомнениями
 
 
 def drawText(text, textColor, sizeFont, typeText, x, y):
@@ -75,6 +78,11 @@ def cycle(running):
             mouse_down = False
 
     pygame.display.update()
+    global lastFrame
+
+    framerate = time.time() - lastFrame
+    lastFrame = time.time()
+    pygame.display.set_caption("Arkanoid3000: FPS: " + str(1.0/framerate))
 
 
 def isMousePressed():

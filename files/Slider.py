@@ -10,9 +10,9 @@ class Slider(object):
 
     def update(self):
         if wrapper.arrowLeft():
-            self.x -= 3
+            self.x -= 7
         if wrapper.arrowRight():
-            self.x += 3
+            self.x += 7
 
     def draw(self):
         wrapper.drawRect((40, 240, 75), (self.x, self.y, self.width, self.height))
