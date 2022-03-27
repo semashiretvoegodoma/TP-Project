@@ -1,5 +1,4 @@
 import time
-
 import pygame
 
 mouse_down = False
@@ -17,7 +16,6 @@ def createScreen(width, height):
 def drawRect(rectColor, rectXYWH):
     global screen
     pygame.draw.rect(screen, rectColor, rectXYWH)
-    # pygame.display.update()  # вот это под сомнениями
 
 
 def drawText(text, textColor, sizeFont, typeText, x, y):
@@ -44,6 +42,11 @@ def collisionRect(X1, Y1, W1, H1, X2, Y2, W2, H2):
     return rect1.colliderect(rect2)
 
 
+def rectContains(X1, Y1, W1, H1, X2, Y2, W2, H2):
+    rect1 = pygame.Rect(X1, Y1, W1, H1)
+    rect2 = pygame.Rect(X2, Y2, W2, H2)
+    return rect1.contains(rect2)
+
 def arrowLeft():
     key = pygame.key.get_pressed()
     return key[pygame.K_LEFT]
@@ -57,8 +60,7 @@ def arrowRight():
 def mouseInButton(X1, Y1, W1, H1):
     rect = pygame.Rect(X1, Y1, W1, H1)
     point = pygame.mouse.get_pos()
-    if rect.collidepoint(point):
-        return 1
+    return rect.collidepoint(point[0], point[1])
 
 
 def dotInRect(X1, Y1, W1, H1, dotx, doty):
@@ -78,11 +80,8 @@ def cycle(running):
             mouse_down = False
 
     pygame.display.update()
-    global lastFrame
 
-    framerate = time.time() - lastFrame
     lastFrame = time.time()
-    pygame.display.set_caption("Arkanoid3000: FPS: " + str(1.0/framerate))
 
 
 def isMousePressed():
@@ -91,3 +90,8 @@ def isMousePressed():
 
 def quit():
     pygame.quit()
+
+
+def deltaTime():
+    """Time since last frame end."""
+    return time.time() - lastFrame

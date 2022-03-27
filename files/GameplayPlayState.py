@@ -10,7 +10,7 @@ class GameplayPlayState(object):
         for i in range(0,10):
             for j in range(0, 10):
                 self.bricks.append(Brick(300 + 70*i, 30*j, 70, 30))
-        self.slider = Slider(600, 600, 100, 20)
+        self.slider = Slider(600.0, 600.0, 100.0, 20.0, 300.0, 1000.0, 4000.0)
 
     def buildLevel(self):
         for brick in self.bricks:
