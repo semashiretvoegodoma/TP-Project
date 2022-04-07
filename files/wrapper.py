@@ -2,7 +2,6 @@ import time
 import pygame
 
 mouse_down = False
-lastFrame = time.time()
 
 def createScreen(width, height):
     global screen
@@ -81,8 +80,6 @@ def cycle(running):
 
     pygame.display.update()
 
-    lastFrame = time.time()
-
 
 def isMousePressed():
     return mouse_down
@@ -90,8 +87,3 @@ def isMousePressed():
 
 def quit():
     pygame.quit()
-
-
-def deltaTime():
-    """Time since last frame end."""
-    return time.time() - lastFrame

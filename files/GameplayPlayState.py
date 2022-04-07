@@ -7,18 +7,16 @@ class GameplayPlayState(object):
     def __init__(self):
         self.ball = Ball()
         self.bricks = []
-        for i in range(0,10):
-            for j in range(0, 10):
-                self.bricks.append(Brick(300 + 70*i, 30*j, 70, 30))
-        self.slider = Slider(600.0, 600.0, 100.0, 20.0, 300.0, 1000.0, 4000.0)
+        self.slider = Slider(600.0, 600.0, 100.0, 20.0, 300.0, 1000.0, 0.2)
 
     def buildLevel(self):
         for brick in self.bricks:
             del brick
 
-        for i in range(0, 10):
-            for j in range(0, 10):
-                self.bricks.append(Brick(300 + 70 * i, 30 * j, 70, 30))
+        for i in range(1, 9):
+            for j in range(1, 10):
+                if ((i+j) % 7) == 0:
+                    self.bricks.append(Brick(300 + 70 * i, 30 * j, 70, 30))
 
 
     def update(self):

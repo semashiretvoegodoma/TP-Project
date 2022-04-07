@@ -1,32 +1,62 @@
+import time
+from math import copysign
 import wrapper
 
 
 class Ball:
     def __init__(self):
-        self.x = 650
-        self.y = 540
-        self.radius = 20
-        self.velocityX = 5
-        self.velocityY = -10
-        self.leftCollider = (0, 0, 10, 40)
-        self.rightCollider = (30, 0, 10, 40)
-        self.topCollider = (0, 0, 40, 10)
-        self.bottomCollider = (0, 30, 40, 10)
+        self.x = 650.0
+        self.y = 540.0
+        self.radius = 10.0
+        self.velocityX = 200.0
+        self.velocityY = -600.0
+        self.collider = (-self.radius, -self.radius, self.radius, self.radius)
+        self.walls = (300.0, 0.0, 1000.0, 700.0)
+        self.lastUpdateTime = time.time()
 
-    def handleCollisions(self, bricks, slider):
-        if self.y > 680 or self.y < 20:
-            self.velocityY *= -1
-        if self.x > 920 or self.x < 320:
-            self.velocityX *= -1
+    def keep_inside(self, other_left, other_top, other_right, other_bottom):
+        if other_top > self.y - self.radius:
+            self.velocityY = abs(self.velocityY)
+        if other_bottom < self.y + self.radius:
+            self.velocityY = -abs(self.velocityY)
+        if other_left > self.x - self.radius:
+            self.velocityX = abs(self.velocityX)
+        if other_right < self.x + self.radius:
+            self.velocityX = -abs(self.velocityX)
 
+    def keep_outside(self, brick):
+        left = max(self.x - self.radius, brick.x)
+        right = min(self.x + self.radius, brick.x + brick.width)
+        top = max(self.y - self.radius, brick.y)
+        bottom = min(self.y + self.radius, brick.y + brick.height)
+        width = right - left
+        height = bottom - top
+        if width > 0 and height > 0:
+            if width > height:
+                self.velocityY = copysign(self.velocityY, self.y - (brick.y + brick.height / 2))
+            else:
+                self.velocityX = copysign(self.velocityX, self.x - (brick.x + brick.width / 2))
+
+    def handle_bricks_collisions(self, bricks):
+        for brick in bricks:
+            self.keep_outside(brick)
+
+    def handle_wall_collisions(self):
+        self.keep_inside(*self.walls)
+
+    def handle_collisions(self, bricks, slider):
+        self.handle_wall_collisions()
+        self.handle_bricks_collisions(bricks)
 
     def move(self):
-        self.x += self.velocityX
-        self.y += self.velocityY
+        deltaTime = time.time() - self.lastUpdateTime
+        self.lastUpdateTime = time.time()
+        self.x += self.velocityX * deltaTime
+        self.y += self.velocityY * deltaTime
 
     def update(self, bricks, slider):
-        self.handleCollisions(bricks, slider)
+        self.handle_collisions(bricks, slider)
         self.move()
 
     def draw(self):
-        wrapper.drawCircle((0, 30, 120), (self.x, self.y), self.radius)
+        wrapper.drawCircle((0, 30, 120), (round(self.x), round(self.y)), round(self.radius))
