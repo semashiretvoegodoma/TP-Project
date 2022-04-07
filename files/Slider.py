@@ -1,3 +1,5 @@
+import time
+
 import wrapper
 
 
@@ -10,12 +12,14 @@ class Slider(object):
         self.leftBoundary = leftBoundary
         self.rightBoundary = rightBoundary
         self.speed = speed
+        self.lastFrameTime = time.time()
 
     def update(self):
+        delta_time = time.time() - self.lastFrameTime
         if wrapper.arrowLeft():
-            self.x -= self.speed * wrapper.deltaTime()
+            self.x -= self.speed * delta_time
         if wrapper.arrowRight():
-            self.x += self.speed * wrapper.deltaTime()
+            self.x += self.speed * delta_time
         self.x = max(self.leftBoundary, min(self.rightBoundary - self.width, self.x))
 
     def draw(self):

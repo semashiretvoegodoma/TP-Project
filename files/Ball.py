@@ -1,5 +1,7 @@
 import time
-from math import copysign
+from math import copysign, sqrt
+from random import random
+
 import wrapper
 
 
@@ -8,11 +10,23 @@ class Ball:
         self.x = 650.0
         self.y = 540.0
         self.radius = 10.0
-        self.velocityX = 200.0
-        self.velocityY = -600.0
+        self.velocity_magnitude = 800.0
+        self.velocityX = (random() - 0.5) * self.velocity_magnitude
+        self.velocityY = 0
+        self.calc_velocity_y(-1)
         self.collider = (-self.radius, -self.radius, self.radius, self.radius)
         self.walls = (300.0, 0.0, 1000.0, 700.0)
         self.lastUpdateTime = time.time()
+
+    def calc_velocity_y(self, sign):
+        velocity_magnitude_squared = self.velocity_magnitude * self.velocity_magnitude
+        velocity_x_squared = self.velocityX * self.velocityX
+        self.velocityY = sign * sqrt(velocity_magnitude_squared - velocity_x_squared)
+
+    def calc_velocity_x(self, sign):
+        velocity_magnitude_squared = self.velocity_magnitude * self.velocity_magnitude
+        velocity_y_squared = self.velocityY * self.velocityY
+        self.velocityY = sign * sqrt(velocity_magnitude_squared - velocity_y_squared)
 
     def keep_inside(self, other_left, other_top, other_right, other_bottom):
         if other_top > self.y - self.radius:
@@ -44,15 +58,32 @@ class Ball:
     def handle_wall_collisions(self):
         self.keep_inside(*self.walls)
 
+    def handle_slider_collisions(self, slider):
+        left = max(self.x - self.radius, slider.x)
+        right = min(self.x + self.radius, slider.x + slider.width)
+        top = max(self.y - self.radius, slider.y)
+        bottom = min(self.y + self.radius, slider.y + slider.height)
+        width = right - left
+        height = bottom - top
+        if width > 0 and height > 0:
+            if width > height and self.y < slider.y:
+                self.velocityX = (random() - 0.5) * self.velocity_magnitude
+                self.calc_velocity_y(-1)
+            else:
+                self.velocityY = random() * self.velocity_magnitude
+                x_sign = +1 if self.x > slider.x else -1
+                self.calc_velocity_x(x_sign)
+
     def handle_collisions(self, bricks, slider):
         self.handle_wall_collisions()
         self.handle_bricks_collisions(bricks)
+        self.handle_slider_collisions(slider)
 
     def move(self):
-        deltaTime = time.time() - self.lastUpdateTime
+        delta_time = time.time() - self.lastUpdateTime
         self.lastUpdateTime = time.time()
-        self.x += self.velocityX * deltaTime
-        self.y += self.velocityY * deltaTime
+        self.x += self.velocityX * delta_time
+        self.y += self.velocityY * delta_time
 
     def update(self, bricks, slider):
         self.handle_collisions(bricks, slider)
