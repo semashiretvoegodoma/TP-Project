@@ -18,12 +18,16 @@ class GameplayPlayState(object):
                 if ((i+j) % 7) == 0:
                     self.bricks.append(Brick(300 + 70 * i, 30 * j, 70, 30))
 
-
     def update(self):
-        self.ball.update(self.bricks, self.slider)
+        bricks_for_ball = []
+        for brick in self.bricks:
+            if brick.state == brick.SOLID:
+                bricks_for_ball.append(brick)
+        self.ball.update_without_moving(bricks_for_ball, self.slider)
         for brick in self.bricks:
             brick.update(self.ball)
         self.slider.update()
+        self.ball.move()
 
     def draw(self):
         self.ball.draw()

@@ -16,7 +16,6 @@ class Ball:
         self.calc_velocity_y(-1)
         self.collider = (-self.radius, -self.radius, self.radius, self.radius)
         self.walls = (300.0, 0.0, 1000.0, 700.0)
-        self.lastUpdateTime = time.time()
 
     def calc_velocity_y(self, sign):
         velocity_magnitude_squared = self.velocity_magnitude * self.velocity_magnitude
@@ -83,9 +82,8 @@ class Ball:
         self.x += self.velocityX * wrapper.delta_time
         self.y += self.velocityY * wrapper.delta_time
 
-    def update(self, bricks, slider):
+    def update_without_moving(self, bricks, slider):
         self.handle_collisions(bricks, slider)
-        self.move()
 
     def draw(self):
         wrapper.drawCircle((0, 30, 120), (round(self.x), round(self.y)), round(self.radius))
