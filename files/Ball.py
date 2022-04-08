@@ -80,10 +80,8 @@ class Ball:
         self.handle_slider_collisions(slider)
 
     def move(self):
-        delta_time = time.time() - self.lastUpdateTime
-        self.lastUpdateTime = time.time()
-        self.x += self.velocityX * delta_time
-        self.y += self.velocityY * delta_time
+        self.x += self.velocityX * wrapper.delta_time
+        self.y += self.velocityY * wrapper.delta_time
 
     def update(self, bricks, slider):
         self.handle_collisions(bricks, slider)

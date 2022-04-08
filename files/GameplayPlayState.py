@@ -7,7 +7,7 @@ class GameplayPlayState(object):
     def __init__(self):
         self.ball = Ball()
         self.bricks = []
-        self.slider = Slider(600.0, 600.0, 100.0, 20.0, 300.0, 1000.0, 0.2)
+        self.slider = Slider(600.0, 600.0, 100.0, 20.0, 300.0, 1000.0, 800.0)
 
     def buildLevel(self):
         for brick in self.bricks:

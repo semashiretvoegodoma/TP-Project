@@ -2,6 +2,8 @@ import time
 import pygame
 
 mouse_down = False
+delta_time = 0.0
+last_frame_time = time.time()
 
 def createScreen(width, height):
     global screen
@@ -69,6 +71,10 @@ def dotInRect(X1, Y1, W1, H1, dotx, doty):
 
 
 def cycle(running):
+    global delta_time
+    global last_frame_time
+    delta_time = time.time() - last_frame_time
+    last_frame_time = time.time()
     global mouse_down
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
