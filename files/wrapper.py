@@ -2,6 +2,7 @@ import time
 import pygame
 
 mouse_down = False
+mouse_just_got_down = False
 delta_time = 0.0
 last_frame_time = time.time()
 
@@ -76,12 +77,16 @@ def cycle(running):
     delta_time = time.time() - last_frame_time
     last_frame_time = time.time()
     global mouse_down
+    global mouse_just_got_down
+    mouse_just_got_down = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_just_got_down = True
             mouse_down = True
         elif event.type == pygame.MOUSEBUTTONUP:
+            mouse_just_got_down = False
             mouse_down = False
 
     pygame.display.update()

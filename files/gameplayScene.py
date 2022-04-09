@@ -3,6 +3,7 @@ from GameplayPlayState import GameplayPlayState
 from GameplayPauseState import GameplayPauseState
 from GameplayWinState import GameplayWinState
 from GameplayLoseState import GameplayLoseState
+import json
 
 
 class GameplayScene(scene.Scene):
@@ -23,11 +24,20 @@ class GameplayScene(scene.Scene):
             self.STATE_WIN: self.win,
             self.STATE_LOSE: self.lose
         }
+        self.current_level = -1
+        f = open("Levels/levels_info")
+        dec = json.JSONDecoder()
+        self.levels = int(dec.decode(s=f.read())["levels_amount"])
+        f.close()
 
-    def startLevel(self, levelNum):
+    def startLevel(self, level):
         self.state = GameplayScene.STATE_PLAY
-        self.play.loadLevel(levelNum)
+        self.play.loadLevel(level)
         self.play.buildLevel()
+        self.current_level = level
+
+    def next_level(self):
+        self.startLevel(self.current_level + 1)
 
     def to_win(self):
         self.state = self.STATE_WIN

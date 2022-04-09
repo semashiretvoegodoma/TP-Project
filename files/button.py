@@ -18,7 +18,7 @@ class Button(object):
         self.actionReceivers.discard(actionReceiver)
 
     def update(self):
-        if wrapper.mouse_down and wrapper.mouseInButton(self.x, self.y, self.width, self.height):
+        if wrapper.mouse_just_got_down and wrapper.mouseInButton(self.x, self.y, self.width, self.height):
             for subscriber in self.actionReceivers:
                 subscriber.on_button(self.action)
 
