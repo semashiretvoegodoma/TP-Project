@@ -20,7 +20,7 @@ class Button(object):
     def update(self):
         if wrapper.mouse_down and wrapper.mouseInButton(self.x, self.y, self.width, self.height):
             for subscriber in self.actionReceivers:
-                subscriber.onButton(self.action)
+                subscriber.on_button(self.action)
 
     def draw(self):
         wrapper.drawRect((150, 150, 150), (self.x, self.y, self.width, self.height))

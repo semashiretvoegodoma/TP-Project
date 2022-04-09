@@ -6,7 +6,8 @@ import wrapper
 
 
 class Ball:
-    def __init__(self):
+    def __init__(self, gameplay_play_state):
+        self.gameplay_play_state = gameplay_play_state
         self.x = 650.0
         self.y = 540.0
         self.radius = 10.0
@@ -30,12 +31,16 @@ class Ball:
     def keep_inside(self, other_left, other_top, other_right, other_bottom):
         if other_top > self.y - self.radius:
             self.velocityY = abs(self.velocityY)
+            return "top"
         if other_bottom < self.y + self.radius:
             self.velocityY = -abs(self.velocityY)
+            return "bottom"
         if other_left > self.x - self.radius:
             self.velocityX = abs(self.velocityX)
+            return "left"
         if other_right < self.x + self.radius:
             self.velocityX = -abs(self.velocityX)
+            return "right"
 
     def keep_outside(self, brick):
         left = max(self.x - self.radius, brick.x)
@@ -55,7 +60,9 @@ class Ball:
             self.keep_outside(brick)
 
     def handle_wall_collisions(self):
-        self.keep_inside(*self.walls)
+        side = self.keep_inside(*self.walls)
+        if side == "bottom":
+            self.gameplay_play_state.to_lose()
 
     def handle_slider_collisions(self, slider):
         left = max(self.x - self.radius, slider.x)

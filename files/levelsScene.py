@@ -20,7 +20,7 @@ class LevelsScene(scene.Scene):
         self.gameplayScene.startLevel(1)
         self.curScene.state = currentScene.CurrentScene.SCENE_GAMEPLAY
 
-    def onButton(self, action):
+    def on_button(self, action):
         if action == "level":
             self.toGameplay()
         elif action == "menu":

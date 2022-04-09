@@ -26,7 +26,7 @@ class MenuScene(scene.Scene):
     def ExitGame(self):
         wrapper.quit()
 
-    def onButton(self, action):
+    def on_button(self, action):
         if action == "quit":
             self.ExitGame()
         elif action == "play":

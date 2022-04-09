@@ -19,10 +19,10 @@ def drawRect(rectColor, rectXYWH):
     pygame.draw.rect(screen, rectColor, rectXYWH)
 
 
-def drawText(text, textColor, sizeFont, typeText, x, y):
+def drawText(text, text_color, font_size, text_type, x, y):
     global screen
-    font = pygame.font.SysFont(typeText, sizeFont)
-    img = font.render(text, True, textColor)
+    font = pygame.font.SysFont(text_type, font_size)
+    img = font.render(text, True, text_color)
     screen.blit(img, (x, y))
 
 

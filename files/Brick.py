@@ -19,7 +19,7 @@ class Brick(object):
         bottom = min(self.y + self.height, ball.y + ball.radius)
         width = right - left
         height = bottom - top
-        if width > 0 and height > 0:
+        if width > 0 and height > 0 and self.state == self.SOLID:
             self.state = self.BROKEN
             self.renderer.to_breaking()
         self.renderer.update()
