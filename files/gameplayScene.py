@@ -14,7 +14,7 @@ class GameplayScene(scene.Scene):
     def __init__(self):
         self.state = GameplayScene.STATE_PLAY
         self.play = GameplayPlayState(self)
-        self.pause = GameplayPauseState()
+        self.pause = GameplayPauseState(self)
         self.win = GameplayWinState(self)
         self.lose = GameplayLoseState(self)
         self.gameplaySceneState = {
@@ -38,6 +38,14 @@ class GameplayScene(scene.Scene):
     def retry(self):
         self.state = self.STATE_PLAY
         self.play.buildLevel()
+
+    def to_pause(self):
+        if self.state == self.STATE_PLAY:
+            self.state = self.STATE_PAUSE
+
+    def resume(self):
+        if self.state == self.STATE_PAUSE:
+            self.state = self.STATE_PLAY
 
     def draw(self):
         self.gameplaySceneState[self.state].draw()

@@ -91,5 +91,9 @@ def isMousePressed():
     return mouse_down
 
 
+def mouse_pos():
+    return pygame.mouse.get_pos()
+
+
 def quit():
     pygame.quit()
