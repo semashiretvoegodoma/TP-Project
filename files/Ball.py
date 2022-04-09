@@ -11,7 +11,7 @@ class Ball:
         self.x = 650.0
         self.y = 540.0
         self.radius = 10.0
-        self.velocity_magnitude = 800.0
+        self.velocity_magnitude = 300.0
         self.velocityX = (random() - 0.5) * self.velocity_magnitude
         self.velocityY = 0
         self.calc_velocity_y(-1)

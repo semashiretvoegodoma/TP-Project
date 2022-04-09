@@ -35,7 +35,7 @@ class GameplayPlayState:
             if brick.state == brick.SOLID:
                 bricks_for_ball.append(brick)
         if len(bricks_for_ball) == 0:
-            self.to_lose()
+            self.to_win()
         self.ball.update_without_moving(bricks_for_ball, self.slider)
         for brick in self.bricks:
             brick.update(self.ball)
