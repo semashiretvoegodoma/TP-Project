@@ -1,3 +1,4 @@
+import sys
 import time
 import pygame
 
@@ -85,6 +86,7 @@ def cycle(running):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
+            return
         elif event.type == pygame.MOUSEBUTTONDOWN:
             mouse_just_got_down = True
             mouse_down = True
@@ -118,3 +120,4 @@ def play_sound(name: str):
 
 def quit():
     pygame.quit()
+    sys.exit()

@@ -38,7 +38,7 @@ class GameplayScene(scene.Scene):
         self.current_level = level
 
     def next_level(self):
-        if self.current_level+1 < self.levels:
+        if self.current_level+1 <= self.levels:
             self.startLevel(self.current_level + 1)
         else:
             self.to_final_win()
