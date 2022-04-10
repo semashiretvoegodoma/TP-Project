@@ -11,12 +11,13 @@ class Ball:
         self.x = 650.0
         self.y = 540.0
         self.radius = 10.0
-        self.velocity_magnitude = 300.0
+        self.velocity_magnitude = 500.0
         self.velocityX = (random() - 0.5) * self.velocity_magnitude
         self.velocityY = 0
         self.calc_velocity_y(-1)
         self.collider = (-self.radius, -self.radius, self.radius, self.radius)
         self.walls = (300.0, 0.0, 1000.0, 700.0)
+        wrapper.add_sound("bounce")
 
     def calc_velocity_y(self, sign):
         velocity_magnitude_squared = self.velocity_magnitude * self.velocity_magnitude
@@ -27,6 +28,9 @@ class Ball:
         velocity_magnitude_squared = self.velocity_magnitude * self.velocity_magnitude
         velocity_y_squared = self.velocityY * self.velocityY
         self.velocityY = sign * sqrt(velocity_magnitude_squared - velocity_y_squared)
+
+    def sound(self):
+        wrapper.play_sound("bounce")
 
     def keep_inside(self, other_left, other_top, other_right, other_bottom):
         if other_top > self.y - self.radius:
@@ -41,6 +45,7 @@ class Ball:
         if other_right < self.x + self.radius:
             self.velocityX = -abs(self.velocityX)
             return "right"
+        return None
 
     def keep_outside(self, brick):
         left = max(self.x - self.radius, brick.x)
@@ -54,15 +59,21 @@ class Ball:
                 self.velocityY = copysign(self.velocityY, self.y - (brick.y + brick.height / 2))
             else:
                 self.velocityX = copysign(self.velocityX, self.x - (brick.x + brick.width / 2))
+            return "impact"
+        return None
 
     def handle_bricks_collisions(self, bricks):
+        result = None
         for brick in bricks:
-            self.keep_outside(brick)
+            if self.keep_outside(brick):
+                result = "impact"
+        return result
 
     def handle_wall_collisions(self):
         side = self.keep_inside(*self.walls)
         if side == "bottom":
             self.gameplay_play_state.to_lose()
+        return side
 
     def handle_slider_collisions(self, slider):
         left = max(self.x - self.radius, slider.x)
@@ -72,18 +83,22 @@ class Ball:
         width = right - left
         height = bottom - top
         if width > 0 and height > 0:
-            if width > height and self.y < slider.y:
+            if width > height:
                 self.velocityX = (random() - 0.5) * self.velocity_magnitude
                 self.calc_velocity_y(-1)
             else:
                 self.velocityY = random() * self.velocity_magnitude
                 x_sign = +1 if self.x > slider.x else -1
                 self.calc_velocity_x(x_sign)
+            return "impact"
+        return None
 
     def handle_collisions(self, bricks, slider):
-        self.handle_wall_collisions()
-        self.handle_bricks_collisions(bricks)
-        self.handle_slider_collisions(slider)
+        wall_result = self.handle_wall_collisions()
+        brick_result = self.handle_bricks_collisions(bricks)
+        slider_result = self.handle_slider_collisions(slider)
+        if wall_result or brick_result or slider_result:
+            self.sound()
 
     def move(self):
         self.x += self.velocityX * wrapper.delta_time

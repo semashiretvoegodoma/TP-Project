@@ -5,8 +5,11 @@ mouse_down = False
 mouse_just_got_down = False
 delta_time = 0.0
 last_frame_time = time.time()
+sounds = dict()
+screen = None
 
 def createScreen(width, height):
+    pygame.init()
     global screen
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption("Arkanoid3000")
@@ -98,6 +101,19 @@ def isMousePressed():
 
 def mouse_pos():
     return pygame.mouse.get_pos()
+
+
+def add_sound(name: str):
+    if name not in sounds.keys():
+        try:
+            sounds[name] = pygame.mixer.Sound("Sounds/" + name + ".wav")
+        except FileNotFoundError:
+            print("ERROR: can't find sound " + name + ".wav in Sounds folder!")
+
+
+def play_sound(name: str):
+    if name in sounds.keys():
+        sounds[name].play()
 
 
 def quit():

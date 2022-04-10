@@ -1,4 +1,5 @@
 from files.BrickRenderer import BrickRenderer
+import wrapper
 
 
 class Brick(object):
@@ -11,6 +12,10 @@ class Brick(object):
         self.BROKEN = 1
         self.state = self.SOLID
         self.renderer = BrickRenderer(self)
+        wrapper.add_sound("explosion")
+
+    def sound(self):
+        wrapper.play_sound("explosion")
 
     def update(self, ball):
         left = max(self.x, ball.x - ball.radius)
@@ -22,6 +27,7 @@ class Brick(object):
         if width > 0 and height > 0 and self.state == self.SOLID:
             self.state = self.BROKEN
             self.renderer.to_breaking()
+            self.sound()
         self.renderer.update()
 
     def draw(self):
