@@ -60,6 +60,9 @@ class GameplayScene(scene.Scene):
         if self.state == self.STATE_PLAY:
             self.state = self.STATE_PAUSE
 
+    def to_levels(self):
+        self.current_scene.state = self.current_scene.SCENE_LEVELS
+
     def resume(self):
         if self.state == self.STATE_PAUSE:
             self.state = self.STATE_PLAY
