@@ -12,7 +12,8 @@ class GameplayScene(scene.Scene):
     STATE_WIN = 2
     STATE_LOSE = 3
 
-    def __init__(self):
+    def __init__(self, current_scene):
+        self.current_scene = current_scene
         self.state = GameplayScene.STATE_PLAY
         self.play = GameplayPlayState(self)
         self.pause = GameplayPauseState(self)
@@ -37,10 +38,16 @@ class GameplayScene(scene.Scene):
         self.current_level = level
 
     def next_level(self):
-        self.startLevel(self.current_level + 1)
+        if self.current_level+1 < self.levels:
+            self.startLevel(self.current_level + 1)
+        else:
+            self.to_final_win()
 
     def to_win(self):
         self.state = self.STATE_WIN
+
+    def to_final_win(self):
+        self.current_scene.state = self.current_scene.SCENE_FINALWIN
 
     def to_lose(self):
         self.state = self.STATE_LOSE

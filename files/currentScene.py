@@ -14,9 +14,9 @@ class CurrentScene(Scene):
     def __init__(self):
         self.state = CurrentScene.SCENE_MENU
         self.menuScene = MenuScene(self)
-        self.gameplayScene = GameplayScene()
+        self.gameplayScene = GameplayScene(self)
         self.levelsScene = LevelsScene(self, self.gameplayScene)
-        self.finalWinScene = FinalWinScene()
+        self.finalWinScene = FinalWinScene(self)
         self.scene = {
             CurrentScene.SCENE_MENU: self.menuScene,
             CurrentScene.SCENE_LEVELS: self.levelsScene,
