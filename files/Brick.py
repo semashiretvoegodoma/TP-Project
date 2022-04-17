@@ -1,4 +1,4 @@
-from files.BrickRenderer import BrickRenderer
+from BrickRenderer import BrickRenderer
 import wrapper
 
 
