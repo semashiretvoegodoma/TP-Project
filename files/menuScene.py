@@ -10,16 +10,18 @@ class MenuScene(scene.Scene):
         self.playButton.addActionReceiver(self)
         self.editorButton = Button((1300 / 2) - 50, 400, 100, 30, "Editor", "editor")
         self.editorButton.addActionReceiver(self)
-        self.quitButton = Button((1300 / 2) - 50, 400, 100, 30, "Quit", "quit")
+        self.quitButton = Button((1300 / 2) - 50, 500, 100, 30, "Quit", "quit")
         self.quitButton.addActionReceiver(self)
         self.currentScene = curScene
 
     def draw(self):
         self.playButton.draw()
+        self.editorButton.draw()
         self.quitButton.draw()
 
     def update(self):
         self.playButton.update()
+        self.editorButton.update()
         self.quitButton.update()
 
     def toLevels(self):
@@ -29,7 +31,7 @@ class MenuScene(scene.Scene):
         wrapper.quit()
 
     def toEditor(self):
-        wrapper.quit()
+        self.currentScene.state = currentScene.CurrentScene.SCENE_EDITOR
 
     def on_button(self, action):
         if action == "quit":
