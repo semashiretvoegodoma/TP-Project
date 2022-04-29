@@ -13,6 +13,7 @@ class Slider:
         self.rightBoundary = rightBoundary
         self.speed = speed
         self.last_mouse_pos = wrapper.mouse_pos()
+        self.last_x = x
 
     def arrow_control(self):
         if wrapper.arrowLeft():
@@ -24,7 +25,11 @@ class Slider:
         self.x += wrapper.mouse_pos()[0] - self.last_mouse_pos[0]
         self.last_mouse_pos = wrapper.mouse_pos()
 
+    def get_velocity(self):
+        return (self.x - self.last_x) / wrapper.delta_time
+
     def update(self):
+        self.last_x = self.x
         if wrapper.mouse_pos() == self.last_mouse_pos:
             self.arrow_control()
         else:

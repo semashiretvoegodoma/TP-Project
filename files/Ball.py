@@ -29,6 +29,16 @@ class Ball:
         velocity_y_squared = self.velocityY * self.velocityY
         self.velocityY = sign * sqrt(velocity_magnitude_squared - velocity_y_squared)
 
+    def make_velocities_ok(self):
+        if self.velocityX > self.velocity_magnitude * 0.9:
+            self.velocityX = self.velocity_magnitude * 0.9
+        if self.velocityY > self.velocity_magnitude * 0.9:
+            self.velocityY = self.velocity_magnitude * 0.9
+        if self.velocityX < - self.velocity_magnitude * 0.9:
+            self.velocityX = - self.velocity_magnitude * 0.9
+        if self.velocityY < - self.velocity_magnitude * 0.9:
+            self.velocityY = - self.velocity_magnitude * 0.9
+
     def sound(self):
         wrapper.play_sound("bounce")
 
@@ -83,10 +93,13 @@ class Ball:
         width = right - left
         height = bottom - top
         if width > 0 and height > 0:
-            if width > height:
-                self.velocityX = (random() - 0.5) * self.velocity_magnitude
+            if width > height:  # front impact
+                # self.velocityX = (random() - 0.5) * self.velocity_magnitude
+                print(self.velocityX, " + ", slider.get_velocity())
+                self.velocityX = self.velocityX + slider.get_velocity() / 5
+                self.make_velocities_ok()
                 self.calc_velocity_y(-1)
-            else:
+            else:  # side impact
                 self.velocityY = random() * self.velocity_magnitude
                 x_sign = +1 if self.x > slider.x else -1
                 self.calc_velocity_x(x_sign)

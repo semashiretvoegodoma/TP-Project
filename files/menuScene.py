@@ -8,6 +8,8 @@ class MenuScene(scene.Scene):
     def __init__(self, curScene):
         self.playButton = Button((1300 / 2) - 50, 300, 100, 30, "Play", "play")
         self.playButton.addActionReceiver(self)
+        self.editorButton = Button((1300 / 2) - 50, 400, 100, 30, "Editor", "editor")
+        self.editorButton.addActionReceiver(self)
         self.quitButton = Button((1300 / 2) - 50, 400, 100, 30, "Quit", "quit")
         self.quitButton.addActionReceiver(self)
         self.currentScene = curScene
@@ -26,8 +28,13 @@ class MenuScene(scene.Scene):
     def ExitGame(self):
         wrapper.quit()
 
+    def toEditor(self):
+        wrapper.quit()
+
     def on_button(self, action):
         if action == "quit":
             self.ExitGame()
         elif action == "play":
             self.toLevels()
+        elif action == "editor":
+            self.toEditor()
