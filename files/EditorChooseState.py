@@ -35,3 +35,5 @@ class EditorChooseState:
             self.to_create()
         elif action == "load":
             self.to_load()
+        elif action == "back":
+            self.to_menu()
