@@ -5,6 +5,7 @@ import pygame
 
 mouse_down = False
 mouse_just_got_down = False
+rmb_just_got_down = False
 last_key_pressed = ""
 delta_time = 0.0
 last_frame_time = time.time()
@@ -72,7 +73,7 @@ def mouseInButton(X1, Y1, W1, H1):
 
 
 def dotInRect(X1, Y1, W1, H1, dotx, doty):
-    if X1 + W1 <= dotx <= X1 and Y1 + H1 <= doty <= Y1:
+    if X1 <= dotx <= X1 + W1 and Y1 <= doty <= Y1 + H1:
         return 1
     return 0
 
@@ -83,21 +84,29 @@ def cycle(running):
     global last_key_pressed
     global mouse_down
     global mouse_just_got_down
+    global rmb_just_got_down
 
     delta_time = time.time() - last_frame_time
     last_frame_time = time.time()
     last_key_pressed = ""
     mouse_just_got_down = False
+    rmb_just_got_down = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
             return
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_just_got_down = True
-            mouse_down = True
+            if event.button == 1:
+                mouse_just_got_down = True
+                mouse_down = True
+            elif event.button == 3:
+                rmb_just_got_down = True
         elif event.type == pygame.MOUSEBUTTONUP:
-            mouse_just_got_down = False
-            mouse_down = False
+            if event.button == 1:
+                mouse_just_got_down = False
+                mouse_down = False
+            elif event.button == 3:
+                rmb_just_got_down = False
         elif event.type == pygame.KEYDOWN:
             key = pygame.key.name(event.key)
             if key in string.ascii_letters or key in string.digits or key == "space" or key == "backspace":

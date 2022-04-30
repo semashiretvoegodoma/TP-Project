@@ -15,7 +15,7 @@ class EditorScene:
         self.choose_state = EditorChooseState(self)
         self.load_state = EditorLoadLevelState()
         self.create_state = EditorNewLevelState(self)
-        self.edit_state = EditorEditingState()
+        self.edit_state = EditorEditingState(self)
         self.state_dict = {
             self.STATE_CHOOSE_VARIANT: self.choose_state,
             self.STATE_LOAD: self.load_state,
@@ -28,7 +28,7 @@ class EditorScene:
 
     def to_editing(self, filepath):
         self.state = self.STATE_EDIT
-        print(filepath)
+        self.edit_state.set_path(filepath)
 
     def update(self):
         self.state_dict[self.state].update()
