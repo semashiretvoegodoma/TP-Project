@@ -2,7 +2,7 @@ import wrapper
 
 
 class Button(object):
-    def __init__(self, x, y, width, height, text, action):
+    def __init__(self, x, y, width, height, text, action, activated_by_escape = False):
         self.x = x
         self.y = y
         self.width = width
@@ -10,6 +10,7 @@ class Button(object):
         self.text = text
         self.action = action
         self.actionReceivers = set()
+        self.activated_by_escape = activated_by_escape
 
     def addActionReceiver(self, actionReceiver):
         self.actionReceivers.add(actionReceiver)
@@ -18,7 +19,7 @@ class Button(object):
         self.actionReceivers.discard(actionReceiver)
 
     def update(self):
-        if wrapper.mouse_just_got_down and wrapper.mouseInButton(self.x, self.y, self.width, self.height):
+        if (wrapper.mouse_just_got_down and wrapper.mouseInButton(self.x, self.y, self.width, self.height)) or (self.activated_by_escape and wrapper.pressed_escape):
             for subscriber in self.actionReceivers:
                 subscriber.on_button(self.action)
 

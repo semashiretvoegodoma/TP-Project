@@ -8,6 +8,7 @@ delta_time = 0.0
 last_frame_time = time.time()
 sounds = dict()
 screen = None
+pressed_escape = False
 
 def createScreen(width, height):
     pygame.init()
@@ -83,6 +84,8 @@ def cycle(running):
     global mouse_down
     global mouse_just_got_down
     mouse_just_got_down = False
+    global pressed_escape
+    pressed_escape = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
@@ -93,6 +96,10 @@ def cycle(running):
         elif event.type == pygame.MOUSEBUTTONUP:
             mouse_just_got_down = False
             mouse_down = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            pressed_escape = True
+        else:
+            pressed_escape = False
 
     pygame.display.update()
 
