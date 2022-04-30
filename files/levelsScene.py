@@ -9,16 +9,7 @@ import json
 
 class LevelsScene(scene.Scene):
     def __init__(self, curScene, gpScene):
-        level_filenames = os.listdir("Levels")
-        self.levelsButtons = []
-        i = 0
-        for filename in level_filenames:
-            print(filename)
-            self.levelsButtons.append(Button(300 + 140 * (i % 5),
-                                             20 + 80 * (i // 5),
-                                             120, 50, filename, "level "+str(i + 1)))
-            self.levelsButtons[i].addActionReceiver(self)
-            i += 1
+        self.refresh_level_buttons()
         self.backButton = Button(100, 100, 100, 50, "back", "menu")
         self.backButton.addActionReceiver(self)
         self.gameplayScene = gpScene
@@ -30,6 +21,18 @@ class LevelsScene(scene.Scene):
     def to_gameplay(self, level):
         self.gameplayScene.startLevel(level)
         self.curScene.state = currentScene.CurrentScene.SCENE_GAMEPLAY
+
+    def refresh_level_buttons(self):
+        level_filenames = os.listdir("Levels")
+        self.levelsButtons = []
+        i = 0
+        for filename in level_filenames:
+            print(filename)
+            self.levelsButtons.append(Button(300 + 140 * (i % 5),
+                                             20 + 80 * (i // 5),
+                                             120, 50, filename, "level " + str(i + 1)))
+            self.levelsButtons[i].addActionReceiver(self)
+            i += 1
 
     def on_button(self, action):
         if action == "menu":
