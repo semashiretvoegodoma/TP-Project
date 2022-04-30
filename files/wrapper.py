@@ -1,9 +1,11 @@
+import string
 import sys
 import time
 import pygame
 
 mouse_down = False
 mouse_just_got_down = False
+last_key_pressed = ""
 delta_time = 0.0
 last_frame_time = time.time()
 sounds = dict()
@@ -78,10 +80,13 @@ def dotInRect(X1, Y1, W1, H1, dotx, doty):
 def cycle(running):
     global delta_time
     global last_frame_time
-    delta_time = time.time() - last_frame_time
-    last_frame_time = time.time()
+    global last_key_pressed
     global mouse_down
     global mouse_just_got_down
+
+    delta_time = time.time() - last_frame_time
+    last_frame_time = time.time()
+    last_key_pressed = ""
     mouse_just_got_down = False
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -93,6 +98,10 @@ def cycle(running):
         elif event.type == pygame.MOUSEBUTTONUP:
             mouse_just_got_down = False
             mouse_down = False
+        elif event.type == pygame.KEYDOWN:
+            key = pygame.key.name(event.key)
+            if key in string.ascii_letters or key in string.digits or key == "space" or key == "backspace":
+                last_key_pressed = key
 
     pygame.display.update()
 
