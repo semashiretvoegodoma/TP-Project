@@ -1,3 +1,5 @@
+import os
+
 import scene
 from GameplayPlayState import GameplayPlayState
 from GameplayPauseState import GameplayPauseState
@@ -25,11 +27,7 @@ class GameplayScene(scene.Scene):
             self.STATE_WIN: self.win,
             self.STATE_LOSE: self.lose
         }
-        self.current_level = -1
-        f = open("Levels/levels_info")
-        dec = json.JSONDecoder()
-        self.levels = int(dec.decode(s=f.read())["levels_amount"])
-        f.close()
+        self.current_level = ""
 
     def startLevel(self, level):
         self.state = GameplayScene.STATE_PLAY
@@ -38,8 +36,11 @@ class GameplayScene(scene.Scene):
         self.current_level = level
 
     def next_level(self):
-        if self.current_level+1 <= self.levels:
-            self.startLevel(self.current_level + 1)
+        files = os.listdir("Levels")
+        i = files.index(self.current_level)
+        next_lvl = files[i+1]
+        if i+1 < len(files):
+            self.startLevel(next_lvl)
         else:
             self.to_final_win()
 
