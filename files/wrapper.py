@@ -86,6 +86,7 @@ def cycle(running):
     mouse_just_got_down = False
     global pressed_escape
     pressed_escape = False
+    draw_picture("t.jpg", 100, 100, 400, 50)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
@@ -124,6 +125,12 @@ def play_sound(name: str):
     if name in sounds.keys():
         sounds[name].play()
 
+
+def draw_picture(imgname: str, x: int, y: int, w: int, h: int):
+    global screen
+    img_surf = pygame.image.load(imgname).convert()
+    img_surf = pygame.transform.scale(img_surf, (w, h))
+    screen.blit(img_surf, (x, y))
 
 def quit():
     pygame.quit()
