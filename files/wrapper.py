@@ -8,6 +8,9 @@ delta_time = 0.0
 last_frame_time = time.time()
 sounds = dict()
 screen = None
+pressed_escape = False
+images = dict()
+
 
 def createScreen(width, height):
     pygame.init()
@@ -53,6 +56,7 @@ def rectContains(X1, Y1, W1, H1, X2, Y2, W2, H2):
     rect2 = pygame.Rect(X2, Y2, W2, H2)
     return rect1.contains(rect2)
 
+
 def arrowLeft():
     key = pygame.key.get_pressed()
     return key[pygame.K_LEFT]
@@ -83,6 +87,9 @@ def cycle(running):
     global mouse_down
     global mouse_just_got_down
     mouse_just_got_down = False
+    global pressed_escape
+    pressed_escape = False
+    # draw_image("walls", 0, 0, 300, 700)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
@@ -93,6 +100,10 @@ def cycle(running):
         elif event.type == pygame.MOUSEBUTTONUP:
             mouse_just_got_down = False
             mouse_down = False
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            pressed_escape = True
+        else:
+            pressed_escape = False
 
     pygame.display.update()
 
@@ -116,6 +127,21 @@ def add_sound(name: str):
 def play_sound(name: str):
     if name in sounds.keys():
         sounds[name].play()
+
+
+def loadImage(name: str):
+    if name not in images.keys():
+        try:
+            images[name] = pygame.image.load("Images/" + name + ".png").convert_alpha()
+        except FileNotFoundError:
+            print("ERROR: can't find image " + name + ".png in Images folder!")
+
+
+def drawImage(name: str, x: int, y: int, w: int, h: int):
+    global screen
+    if name in images.keys():
+        img_surf = pygame.transform.scale(images[name], (w, h))
+        screen.blit(img_surf, (x, y))
 
 
 def quit():

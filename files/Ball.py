@@ -121,4 +121,4 @@ class Ball:
         self.handle_collisions(bricks, slider)
 
     def draw(self):
-        wrapper.drawCircle((0, 30, 120), (round(self.x), round(self.y)), round(self.radius))
+        wrapper.drawCircle((0, 0, 0), (round(self.x), round(self.y)), round(self.radius))

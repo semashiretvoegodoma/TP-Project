@@ -6,18 +6,22 @@ import currentScene
 
 class MenuScene(scene.Scene):
     def __init__(self, curScene):
-        self.playButton = Button((1300 / 2) - 50, 300, 100, 30, "Play", "play")
+        self.playButton = Button(553, 253, 205, 70, "", "play")
         self.playButton.addActionReceiver(self)
-        self.editorButton = Button((1300 / 2) - 50, 400, 100, 30, "Editor", "editor")
+        self.editorButton = Button(553, 353, 205, 70, "", "editor")
         self.editorButton.addActionReceiver(self)
-        self.quitButton = Button((1300 / 2) - 50, 500, 100, 30, "Quit", "quit")
+        self.quitButton = Button(553, 453, 205, 70, "", "quit")
         self.quitButton.addActionReceiver(self)
         self.currentScene = curScene
 
     def draw(self):
-        self.playButton.draw()
-        self.editorButton.draw()
-        self.quitButton.draw()
+        wrapper.loadImage("buttonStart")
+        wrapper.loadImage("buttonEditor")
+        wrapper.loadImage("buttonQuit")
+
+        wrapper.drawImage("buttonStart", 550, 250, 213, 78)
+        wrapper.drawImage("buttonEditor", 550, 350, 213, 78)
+        wrapper.drawImage("buttonQuit", 550, 450, 213, 78)
 
     def update(self):
         self.playButton.update()

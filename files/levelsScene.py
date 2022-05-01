@@ -1,4 +1,5 @@
 import scene
+import wrapper
 from button import Button
 import gameplayScene
 import currentScene
@@ -13,11 +14,11 @@ class LevelsScene(scene.Scene):
         f.close()
         self.levelsButtons = []
         for i in range(0, levels):
-            self.levelsButtons.append(Button(300 + 140 * (i % 5),
-                                             20 + 80 * (i // 5),
-                                             120, 50, "Level "+str(i + 1), "level "+str(i + 1)))
+            self.levelsButtons.append(Button(330 + 150 * (i % 5),
+                                             30,
+                                             65, 65, str(i + 1), "level " + str(i + 1)))
             self.levelsButtons[i].addActionReceiver(self)
-        self.backButton = Button(100, 100, 100, 50, "back", "menu")
+        self.backButton = Button(10, 600, 220, 92, "", "menu")
         self.backButton.addActionReceiver(self)
         self.gameplayScene = gpScene
         self.curScene = curScene
@@ -36,7 +37,10 @@ class LevelsScene(scene.Scene):
             self.to_gameplay(int(action[6:]))
 
     def draw(self):
-        self.backButton.draw()
+        wrapper.loadImage("backgroundLevels")
+        wrapper.drawImage("backgroundLevels", 0, 0, 1300, 700)
+        wrapper.loadImage("buttonBack")
+        wrapper.drawImage("buttonBack", 10, 600, 220, 92)
         for b in self.levelsButtons:
             b.draw()
 
