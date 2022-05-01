@@ -116,11 +116,8 @@ def cycle(running):
             key = pygame.key.name(event.key)
             if key in string.ascii_letters or key in string.digits or key == "space" or key == "backspace":
                 last_key_pressed = key
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            pressed_escape = True
-        else:
-            pressed_escape = False
-
+            if event.key == pygame.K_ESCAPE:
+                pressed_escape = True
     pygame.display.update()
 
 
