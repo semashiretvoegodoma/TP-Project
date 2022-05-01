@@ -38,8 +38,8 @@ class GameplayScene(scene.Scene):
     def next_level(self):
         files = sorted(os.listdir("Levels"))
         i = files.index(self.current_level)
-        next_lvl = files[i+1]
         if i+1 < len(files):
+            next_lvl = files[i + 1]
             self.startLevel(next_lvl)
         else:
             self.to_final_win()
