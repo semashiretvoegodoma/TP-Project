@@ -11,6 +11,8 @@ delta_time = 0.0
 last_frame_time = time.time()
 sounds = dict()
 screen = None
+pressed_escape = False
+images = dict()
 
 def createScreen(width, height):
     pygame.init()
@@ -91,6 +93,9 @@ def cycle(running):
     last_key_pressed = ""
     mouse_just_got_down = False
     rmb_just_got_down = False
+    global pressed_escape
+    pressed_escape = False
+    #draw_image("walls", 0, 0, 300, 700)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
@@ -111,6 +116,10 @@ def cycle(running):
             key = pygame.key.name(event.key)
             if key in string.ascii_letters or key in string.digits or key == "space" or key == "backspace":
                 last_key_pressed = key
+        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            pressed_escape = True
+        else:
+            pressed_escape = False
 
     pygame.display.update()
 
@@ -135,6 +144,18 @@ def play_sound(name: str):
     if name in sounds.keys():
         sounds[name].play()
 
+def load_image(name : str):
+    if name not in images.keys():
+        try:
+            images[name] = pygame.image.load("Images/" + name + ".png").convert_alpha()
+        except FileNotFoundError:
+            print("ERROR: can't find image " + name + ".png in Images folder!")
+
+def draw_image(name: str, x: int, y: int, w: int, h: int):
+    global screen
+    if name in images.keys():
+        img_surf = pygame.transform.scale(images[name], (w, h))
+        screen.blit(img_surf, (x, y))
 
 def quit():
     pygame.quit()
