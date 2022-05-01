@@ -25,6 +25,7 @@ class EditorChooseState:
         self.editorScene.state = self.editorScene.STATE_CREATE
 
     def to_load(self):
+        self.editorScene.load_state.refresh_level_buttons()
         self.editorScene.state = self.editorScene.STATE_LOAD
 
     def to_menu(self):

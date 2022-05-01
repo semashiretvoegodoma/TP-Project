@@ -13,7 +13,7 @@ class EditorScene:
         self.STATE_EDIT = 3
         self.state = self.STATE_CHOOSE_VARIANT
         self.choose_state = EditorChooseState(self)
-        self.load_state = EditorLoadLevelState()
+        self.load_state = EditorLoadLevelState(self)
         self.create_state = EditorNewLevelState(self)
         self.edit_state = EditorEditingState(self)
         self.state_dict = {

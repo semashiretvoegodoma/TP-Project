@@ -23,14 +23,14 @@ class LevelsScene(scene.Scene):
         self.curScene.state = currentScene.CurrentScene.SCENE_GAMEPLAY
 
     def refresh_level_buttons(self):
-        level_filenames = os.listdir("Levels")
+        level_filenames = sorted(os.listdir("Levels"))
         self.levelsButtons = []
         i = 0
         for filename in level_filenames:
             print(filename)
             self.levelsButtons.append(Button(300 + 140 * (i % 5),
                                              20 + 80 * (i // 5),
-                                             120, 50, filename, "level " + str(i + 1)))
+                                             120, 50, filename, "level " + filename))
             self.levelsButtons[i].addActionReceiver(self)
             i += 1
 

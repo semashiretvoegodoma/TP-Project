@@ -36,7 +36,7 @@ class GameplayScene(scene.Scene):
         self.current_level = level
 
     def next_level(self):
-        files = os.listdir("Levels")
+        files = sorted(os.listdir("Levels"))
         i = files.index(self.current_level)
         next_lvl = files[i+1]
         if i+1 < len(files):

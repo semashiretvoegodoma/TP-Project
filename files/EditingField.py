@@ -3,7 +3,7 @@ import wrapper
 
 class EditingField:
     def __init__(self):
-        self.rects = [(0,0,100,150), (300,55,300,207)]
+        self.rects = []
         self.grid_on = True
         self.XYWH = (310, 130, 700, 500)
         self.grid_cell_size = 25

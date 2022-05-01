@@ -22,6 +22,7 @@ class EditorNewLevelState:
         if action == "create":
             if self.line_edit.text == "":
                 return
+            self.editor_scene.edit_state.set_opened_from("create")
             self.editor_scene.to_editing(self.get_level_path())
         elif action == "back":
             self.editor_scene.state = self.editor_scene.STATE_CHOOSE_VARIANT
