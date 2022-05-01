@@ -25,6 +25,7 @@ class MenuScene(scene.Scene):
         self.quitButton.update()
 
     def toLevels(self):
+        self.currentScene.levelsScene.refresh_level_buttons()
         self.currentScene.state = currentScene.CurrentScene.SCENE_LEVELS
 
     def ExitGame(self):
