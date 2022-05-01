@@ -1,6 +1,7 @@
 import os
 
 import scene
+import wrapper
 from button import Button
 import gameplayScene
 import currentScene
@@ -10,7 +11,7 @@ import json
 class LevelsScene(scene.Scene):
     def __init__(self, curScene, gpScene):
         self.refresh_level_buttons()
-        self.backButton = Button(100, 100, 100, 50, "back", "menu")
+        self.backButton = Button(10, 600, 220, 92, "", "menu")
         self.backButton.addActionReceiver(self)
         self.gameplayScene = gpScene
         self.curScene = curScene
@@ -28,9 +29,9 @@ class LevelsScene(scene.Scene):
         i = 0
         for filename in level_filenames:
             print(filename)
-            self.levelsButtons.append(Button(300 + 140 * (i % 5),
-                                             20 + 80 * (i // 5),
-                                             120, 50, filename, "level " + filename))
+            self.levelsButtons.append(Button(330 + 150 * (i % 5),
+                                             30,
+                                             65, 65, filename, "level " + filename))
             self.levelsButtons[i].addActionReceiver(self)
             i += 1
 
@@ -41,7 +42,10 @@ class LevelsScene(scene.Scene):
             self.to_gameplay(action[6:])
 
     def draw(self):
-        self.backButton.draw()
+        wrapper.loadImage("backgroundLevels")
+        wrapper.drawImage("backgroundLevels", 0, 0, 1300, 700)
+        wrapper.loadImage("buttonBack")
+        wrapper.drawImage("buttonBack", 10, 600, 220, 92)
         for b in self.levelsButtons:
             b.draw()
 

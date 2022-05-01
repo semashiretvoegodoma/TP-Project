@@ -1,3 +1,4 @@
+import wrapper
 from EditorEditingState import EditorEditingState
 from EditorChooseState import EditorChooseState
 from EditorLoadLevelState import EditorLoadLevelState
@@ -34,4 +35,6 @@ class EditorScene:
         self.state_dict[self.state].update()
 
     def draw(self):
+        wrapper.loadImage("background")
+        wrapper.drawImage("background", 0, 0, 1300, 700)
         self.state_dict[self.state].draw()

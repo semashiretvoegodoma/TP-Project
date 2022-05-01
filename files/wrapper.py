@@ -58,6 +58,7 @@ def rectContains(X1, Y1, W1, H1, X2, Y2, W2, H2):
     rect2 = pygame.Rect(X2, Y2, W2, H2)
     return rect1.contains(rect2)
 
+
 def arrowLeft():
     key = pygame.key.get_pressed()
     return key[pygame.K_LEFT]
@@ -153,6 +154,21 @@ def draw_image(name: str, x: int, y: int, w: int, h: int):
     if name in images.keys():
         img_surf = pygame.transform.scale(images[name], (w, h))
         screen.blit(img_surf, (x, y))
+
+def loadImage(name: str):
+    if name not in images.keys():
+        try:
+            images[name] = pygame.image.load("Images/" + name + ".png").convert_alpha()
+        except FileNotFoundError:
+            print("ERROR: can't find image " + name + ".png in Images folder!")
+
+
+def drawImage(name: str, x: int, y: int, w: int, h: int):
+    global screen
+    if name in images.keys():
+        img_surf = pygame.transform.scale(images[name], (w, h))
+        screen.blit(img_surf, (x, y))
+
 
 def quit():
     pygame.quit()
