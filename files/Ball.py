@@ -95,7 +95,6 @@ class Ball:
         if width > 0 and height > 0:
             if width > height:  # front impact
                 # self.velocityX = (random() - 0.5) * self.velocity_magnitude
-                print(self.velocityX, " + ", slider.get_velocity())
                 self.velocityX = self.velocityX + slider.get_velocity() / 5
                 self.make_velocities_ok()
                 self.calc_velocity_y(-1)

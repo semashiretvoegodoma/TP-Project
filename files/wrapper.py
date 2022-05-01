@@ -1,16 +1,18 @@
+import string
 import sys
 import time
 import pygame
 
 mouse_down = False
 mouse_just_got_down = False
+rmb_just_got_down = False
+last_key_pressed = ""
 delta_time = 0.0
 last_frame_time = time.time()
 sounds = dict()
 screen = None
 pressed_escape = False
 images = dict()
-
 
 def createScreen(width, height):
     pygame.init()
@@ -74,7 +76,7 @@ def mouseInButton(X1, Y1, W1, H1):
 
 
 def dotInRect(X1, Y1, W1, H1, dotx, doty):
-    if X1 + W1 <= dotx <= X1 and Y1 + H1 <= doty <= Y1:
+    if X1 <= dotx <= X1 + W1 and Y1 <= doty <= Y1 + H1:
         return 1
     return 0
 
@@ -82,29 +84,41 @@ def dotInRect(X1, Y1, W1, H1, dotx, doty):
 def cycle(running):
     global delta_time
     global last_frame_time
-    delta_time = time.time() - last_frame_time
-    last_frame_time = time.time()
+    global last_key_pressed
     global mouse_down
     global mouse_just_got_down
+    global rmb_just_got_down
+
+    delta_time = time.time() - last_frame_time
+    last_frame_time = time.time()
+    last_key_pressed = ""
     mouse_just_got_down = False
+    rmb_just_got_down = False
     global pressed_escape
     pressed_escape = False
-    # draw_image("walls", 0, 0, 300, 700)
+    #draw_image("walls", 0, 0, 300, 700)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
             return
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_just_got_down = True
-            mouse_down = True
+            if event.button == 1:
+                mouse_just_got_down = True
+                mouse_down = True
+            elif event.button == 3:
+                rmb_just_got_down = True
         elif event.type == pygame.MOUSEBUTTONUP:
-            mouse_just_got_down = False
-            mouse_down = False
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            pressed_escape = True
-        else:
-            pressed_escape = False
-
+            if event.button == 1:
+                mouse_just_got_down = False
+                mouse_down = False
+            elif event.button == 3:
+                rmb_just_got_down = False
+        elif event.type == pygame.KEYDOWN:
+            key = pygame.key.name(event.key)
+            if key in string.ascii_letters or key in string.digits or key == "space" or key == "backspace":
+                last_key_pressed = key
+            if event.key == pygame.K_ESCAPE:
+                pressed_escape = True
     pygame.display.update()
 
 
@@ -128,6 +142,18 @@ def play_sound(name: str):
     if name in sounds.keys():
         sounds[name].play()
 
+def load_image(name : str):
+    if name not in images.keys():
+        try:
+            images[name] = pygame.image.load("Images/" + name + ".png").convert_alpha()
+        except FileNotFoundError:
+            print("ERROR: can't find image " + name + ".png in Images folder!")
+
+def draw_image(name: str, x: int, y: int, w: int, h: int):
+    global screen
+    if name in images.keys():
+        img_surf = pygame.transform.scale(images[name], (w, h))
+        screen.blit(img_surf, (x, y))
 
 def loadImage(name: str):
     if name not in images.keys():

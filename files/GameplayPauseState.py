@@ -5,7 +5,7 @@ from button import Button
 class GameplayPauseState:
     def __init__(self, gameplay_scene):
         self.gameplay_scene = gameplay_scene
-        self.resume_button = Button(900, 200, 270, 112, "", "resume")
+        self.resume_button = Button(900, 200, 270, 112, "", "resume", True)
         self.quit_button = Button(692, 350, 475, 112, "", "quit")
         self.resume_button.addActionReceiver(self)
         self.quit_button.addActionReceiver(self)

@@ -1,4 +1,5 @@
 import json
+import wrapper
 
 import wrapper
 from Ball import Ball
@@ -13,11 +14,12 @@ class GameplayPlayState:
         self.ball = Ball(self)
         self.bricks = []
         self.slider = Slider(600.0, 600.0, 100.0, 20.0, 300.0, 1000.0, 800.0)
-        self.pause_button = Button(35, 100, 200, 83, "", "pause")
+        self.pause_button = Button(35, 100, 200, 83, "", "pause", True)
         self.pause_button.addActionReceiver(self)
         self.build_level_of_version = {
             "1": self.build_level_v1
         }
+        wrapper.load_image("walls")
 
     def loadLevel(self, level):
         f = open("Levels/" + str(level))
@@ -102,3 +104,5 @@ class GameplayPlayState:
             brick.draw()
         wrapper.loadImage("buttonPause")
         wrapper.drawImage("buttonPause", 35, 100, 200, 83)
+        wrapper.draw_image("walls", 0, 0, 300, 700)
+        wrapper.draw_image("walls", 1000, 0, 300, 700)
