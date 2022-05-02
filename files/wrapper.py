@@ -14,6 +14,7 @@ screen = None
 pressed_escape = False
 images = dict()
 
+
 def createScreen(width, height):
     pygame.init()
     global screen
@@ -96,6 +97,7 @@ def cycle(running):
     rmb_just_got_down = False
     global pressed_escape
     pressed_escape = False
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
@@ -139,7 +141,9 @@ def add_sound(name: str):
 
 def play_sound(name: str):
     if name in sounds.keys():
-        sounds[name].play()       
+        sounds[name].play()
+
+
 
 def loadImage(name: str):
     if name not in images.keys():

@@ -20,6 +20,7 @@ class GameplayPlayState:
         self.build_level_of_version = {
             "1": self.build_level_v1
         }
+
         self.time_of_bonuses = {"slider" : -1.0, "ball" : -1.0, "meteor" : -1.0, "added_balls" : -1.0}
 
     def loadLevel(self, level):

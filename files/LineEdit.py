@@ -30,4 +30,4 @@ class LineEdit:
 
     def draw(self):
         wrapper.drawRect(self.color, self.XYWH)
-        wrapper.drawText(self.text, self.text_color, 40, "Arial", self.XYWH[0], self.XYWH[1])
+        wrapper.drawText(self.text, self.text_color, 50, "Arial", self.XYWH[0] + 7, self.XYWH[1] + 12)

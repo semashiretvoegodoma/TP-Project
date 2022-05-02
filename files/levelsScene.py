@@ -30,7 +30,7 @@ class LevelsScene(scene.Scene):
         for filename in level_filenames:
             print(filename)
             self.levelsButtons.append(Button(330 + 150 * (i % 5),
-                                             30,
+                                             30 + 150 * (i // 5),
                                              65, 65, filename, "level " + filename))
             self.levelsButtons[i].addActionReceiver(self)
             i += 1
