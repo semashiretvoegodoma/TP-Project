@@ -97,7 +97,7 @@ def cycle(running):
     rmb_just_got_down = False
     global pressed_escape
     pressed_escape = False
-    # draw_image("walls", 0, 0, 300, 700)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
@@ -142,6 +142,7 @@ def add_sound(name: str):
 def play_sound(name: str):
     if name in sounds.keys():
         sounds[name].play()
+
 
 
 def loadImage(name: str):
