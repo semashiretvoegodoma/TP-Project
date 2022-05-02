@@ -19,7 +19,7 @@ class CurrentScene(Scene):
         self.gameplayScene = GameplayScene(self)
         self.levelsScene = LevelsScene(self, self.gameplayScene)
         self.finalWinScene = FinalWinScene(self)
-        self.editorScene = EditorScene()
+        self.editorScene = EditorScene(self)
         self.scene = {
             CurrentScene.SCENE_MENU: self.menuScene,
             CurrentScene.SCENE_LEVELS: self.levelsScene,

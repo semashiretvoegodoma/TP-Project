@@ -1,4 +1,7 @@
+import os
+
 import scene
+import wrapper
 from button import Button
 import gameplayScene
 import currentScene
@@ -7,17 +10,8 @@ import json
 
 class LevelsScene(scene.Scene):
     def __init__(self, curScene, gpScene):
-        f = open("Levels/levels_info")
-        dec = json.JSONDecoder()
-        levels = int(dec.decode(s=f.read())["levels_amount"])
-        f.close()
-        self.levelsButtons = []
-        for i in range(0, levels):
-            self.levelsButtons.append(Button(300 + 140 * (i % 5),
-                                             20 + 80 * (i // 5),
-                                             120, 50, "Level "+str(i + 1), "level "+str(i + 1)))
-            self.levelsButtons[i].addActionReceiver(self)
-        self.backButton = Button(100, 100, 100, 50, "back", "menu")
+        self.refresh_level_buttons()
+        self.backButton = Button(10, 600, 220, 92, "", "menu")
         self.backButton.addActionReceiver(self)
         self.gameplayScene = gpScene
         self.curScene = curScene
@@ -29,14 +23,29 @@ class LevelsScene(scene.Scene):
         self.gameplayScene.startLevel(level)
         self.curScene.state = currentScene.CurrentScene.SCENE_GAMEPLAY
 
+    def refresh_level_buttons(self):
+        level_filenames = sorted(os.listdir("Levels"))
+        self.levelsButtons = []
+        i = 0
+        for filename in level_filenames:
+            print(filename)
+            self.levelsButtons.append(Button(330 + 150 * (i % 5),
+                                             30,
+                                             65, 65, filename, "level " + filename))
+            self.levelsButtons[i].addActionReceiver(self)
+            i += 1
+
     def on_button(self, action):
         if action == "menu":
             self.to_menu()
         elif action[:5] == "level":
-            self.to_gameplay(int(action[6:]))
+            self.to_gameplay(action[6:])
 
     def draw(self):
-        self.backButton.draw()
+        wrapper.loadImage("backgroundLevels")
+        wrapper.drawImage("backgroundLevels", 0, 0, 1300, 700)
+        wrapper.loadImage("buttonBack")
+        wrapper.drawImage("buttonBack", 10, 600, 220, 92)
         for b in self.levelsButtons:
             b.draw()
 

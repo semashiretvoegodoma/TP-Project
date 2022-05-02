@@ -2,6 +2,7 @@ import json
 import wrapper
 import random
 
+import wrapper
 from Ball import Ball
 from Slider import Slider
 from Brick import Brick
@@ -14,10 +15,10 @@ class GameplayPlayState:
         self.additional_balls = []
         self.bricks = []
         self.slider = Slider(600.0, 600.0, 100.0, 20.0, 300.0, 1000.0, 800.0)
-        self.pause_button = Button(100, 100, 100, 40, "Pause", "pause", True)
+        self.pause_button = Button(35, 100, 200, 83, "", "pause", True)
         self.pause_button.addActionReceiver(self)
         self.build_level_of_version = {
-            "1":self.build_level_v1
+            "1": self.build_level_v1
         }
         wrapper.load_image("walls")
         self.time_of_bonuses = {"slider" : -1.0, "ball" : -1.0, "meteor" : -1.0, "added_balls" : -1.0}
@@ -166,6 +167,8 @@ class GameplayPlayState:
         self.check_bonus(wrapper.delta_time)
 
     def draw(self):
+        wrapper.loadImage("backgroundPlay")
+        wrapper.drawImage("backgroundPlay", 0, 0, 1300, 700)
         self.ball.draw()
         if len(self.additional_balls) != 0:
             for i in range(len(self.additional_balls)):
@@ -173,6 +176,7 @@ class GameplayPlayState:
         self.slider.draw()
         for brick in self.bricks:
             brick.draw()
+        wrapper.loadImage("buttonPause")
+        wrapper.drawImage("buttonPause", 35, 100, 200, 83)
         wrapper.draw_image("walls", 0, 0, 300, 700)
         wrapper.draw_image("walls", 1000, 0, 300, 700)
-        self.pause_button.draw()

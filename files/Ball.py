@@ -112,7 +112,6 @@ class Ball:
         if width > 0 and height > 0:
             if width > height:  # front impact
                 # self.velocityX = (random() - 0.5) * self.velocity_magnitude
-                print(self.velocityX, " + ", slider.get_velocity())
                 self.velocityX = self.velocityX + slider.get_velocity() / 5
                 self.make_velocities_ok()
                 self.calc_velocity_y(-1)
@@ -139,6 +138,6 @@ class Ball:
 
     def draw(self):
         if not self.is_additional:
-            wrapper.drawCircle((0, 30, 120), (round(self.x), round(self.y)), round(self.radius))
+            wrapper.drawCircle((0, 0, 0), (round(self.x), round(self.y)), round(self.radius))
         else:
             wrapper.drawCircle((255, 130, 2), (round(self.x), round(self.y)), round(self.radius))
