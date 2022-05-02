@@ -20,7 +20,6 @@ class GameplayPlayState:
         self.build_level_of_version = {
             "1": self.build_level_v1
         }
-        wrapper.load_image("walls")
         self.time_of_bonuses = {"slider" : -1.0, "ball" : -1.0, "meteor" : -1.0, "added_balls" : -1.0}
 
     def loadLevel(self, level):
@@ -95,7 +94,7 @@ class GameplayPlayState:
         if self.time_of_bonuses["slider"] != -1.0:
             self.time_of_bonuses["slider"] += delta_time
             if self.time_of_bonuses["slider"] > TIME_OF_ACTIVATED_BONUS:
-                self.slider.width -= 50
+                self.slider.width = 100
                 self.time_of_bonuses["slider"] = -1.0
         if self.time_of_bonuses["ball"] != -1.0:
             self.time_of_bonuses["ball"] += delta_time
@@ -178,5 +177,3 @@ class GameplayPlayState:
             brick.draw()
         wrapper.loadImage("buttonPause")
         wrapper.drawImage("buttonPause", 35, 100, 200, 83)
-        wrapper.draw_image("walls", 0, 0, 300, 700)
-        wrapper.draw_image("walls", 1000, 0, 300, 700)
