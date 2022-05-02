@@ -17,6 +17,10 @@ class Ball:
         self.calc_velocity_y(-1)
         self.collider = (-self.radius, -self.radius, self.radius, self.radius)
         self.walls = (300.0, 0.0, 1000.0, 700.0)
+        self.is_meteor = False
+        self.penetration = False
+        self.is_additional = False
+        self.exclude_additional = False
         wrapper.add_sound("bounce")
 
     def calc_velocity_y(self, sign):
@@ -65,10 +69,20 @@ class Ball:
         width = right - left
         height = bottom - top
         if width > 0 and height > 0:
-            if width > height:
-                self.velocityY = copysign(self.velocityY, self.y - (brick.y + brick.height / 2))
+            if self.is_meteor:
+                if self.penetration:
+                    pass
+                else:
+                    if width > height:
+                        self.velocityY = copysign(self.velocityY, self.y - (brick.y + brick.height / 2))
+                    else:
+                        self.velocityX = copysign(self.velocityX, self.x - (brick.x + brick.width / 2))
+                self.penetration = not self.penetration
             else:
-                self.velocityX = copysign(self.velocityX, self.x - (brick.x + brick.width / 2))
+                if width > height:
+                    self.velocityY = copysign(self.velocityY, self.y - (brick.y + brick.height / 2))
+                else:
+                    self.velocityX = copysign(self.velocityX, self.x - (brick.x + brick.width / 2))
             return "impact"
         return None
 
@@ -82,7 +96,10 @@ class Ball:
     def handle_wall_collisions(self):
         side = self.keep_inside(*self.walls)
         if side == "bottom":
-            self.gameplay_play_state.to_lose()
+            if self.is_additional:
+                self.exclude_additional = True
+            else:
+                self.gameplay_play_state.to_lose()
         return side
 
     def handle_slider_collisions(self, slider):
@@ -121,4 +138,7 @@ class Ball:
         self.handle_collisions(bricks, slider)
 
     def draw(self):
-        wrapper.drawCircle((0, 30, 120), (round(self.x), round(self.y)), round(self.radius))
+        if not self.is_additional:
+            wrapper.drawCircle((0, 30, 120), (round(self.x), round(self.y)), round(self.radius))
+        else:
+            wrapper.drawCircle((255, 130, 2), (round(self.x), round(self.y)), round(self.radius))

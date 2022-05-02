@@ -87,7 +87,6 @@ def cycle(running):
     mouse_just_got_down = False
     global pressed_escape
     pressed_escape = False
-    #draw_image("walls", 0, 0, 300, 700)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running[0] = False
@@ -137,7 +136,7 @@ def draw_image(name: str, x: int, y: int, w: int, h: int):
     global screen
     if name in images.keys():
         img_surf = pygame.transform.scale(images[name], (w, h))
-        screen.blit(img_surf, (x, y))
+        screen.blit(img_surf, (x, y))        
 
 def quit():
     pygame.quit()
