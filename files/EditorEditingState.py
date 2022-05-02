@@ -2,6 +2,7 @@ import json
 
 from EditingField import EditingField
 from button import Button
+import wrapper
 
 
 class EditorEditingState:
@@ -10,11 +11,11 @@ class EditorEditingState:
         self.opened_from = "create"
         self.filepath = ""
         self.editing_field = EditingField()
-        self.save_button = Button(150, 60, 200, 40, "Save", "save")
+        self.save_button = Button(200, 30, 220, 92, "", "save")
         self.save_button.addActionReceiver(self)
-        self.quit_button = Button(450, 60, 200, 40, "Quit", "quit")
+        self.quit_button = Button(10, 600, 220, 92, "", "quit")
         self.quit_button.addActionReceiver(self)
-        self.grid_button = Button(850, 60, 200, 40, "Toggle grid", "grid")
+        self.grid_button = Button(730, 30, 380, 92, "", "grid")
         self.grid_button.addActionReceiver(self)
 
     def set_path(self, filepath):
@@ -71,7 +72,12 @@ class EditorEditingState:
         self.quit_button.update()
 
     def draw(self):
+        wrapper.loadImage("background")
+        wrapper.drawImage("background", 0, 0, 1300, 700)
+        wrapper.loadImage("buttonBack")
+        wrapper.drawImage("buttonBack", 10, 600, 220, 92)
+        wrapper.loadImage("buttonSave")
+        wrapper.drawImage("buttonSave", 200, 30, 220, 92)
+        wrapper.loadImage("buttonToggleGrid")
+        wrapper.drawImage("buttonToggleGrid", 730, 30, 380, 92)
         self.editing_field.draw()
-        self.save_button.draw()
-        self.grid_button.draw()
-        self.quit_button.draw()

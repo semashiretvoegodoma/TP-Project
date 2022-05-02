@@ -35,6 +35,6 @@ class EditorScene:
         self.state_dict[self.state].update()
 
     def draw(self):
-        wrapper.loadImage("background")
-        wrapper.drawImage("background", 0, 0, 1300, 700)
+        wrapper.loadImage("backgroundEditor")
+        wrapper.drawImage("backgroundEditor", 0, 0, 1300, 700)
         self.state_dict[self.state].draw()

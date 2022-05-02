@@ -8,7 +8,7 @@ class EditorLoadLevelState(LevelsScene):
     def __init__(self, editor_scene):
         self.editor_scene = editor_scene
         self.refresh_level_buttons()
-        self.backButton = Button(100, 100, 100, 50, "Back", "menu")
+        self.backButton = Button(10, 600, 220, 92, "", "menu")
         self.backButton.addActionReceiver(self)
 
     def to_menu(self):
@@ -24,6 +24,5 @@ class EditorLoadLevelState(LevelsScene):
         self.editor_scene.state = self.editor_scene.STATE_EDIT
 
     def draw(self):
-        wrapper.drawText("BUILD NEW LEVEL", (0, 0, 0), 40, "Arial", 20, 530)
         wrapper.drawText("Choose one from the list", (0, 0, 0), 20, "Arial", 20, 630)
         LevelsScene.draw(self)

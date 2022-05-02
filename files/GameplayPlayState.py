@@ -19,7 +19,6 @@ class GameplayPlayState:
         self.build_level_of_version = {
             "1": self.build_level_v1
         }
-        wrapper.load_image("walls")
 
     def loadLevel(self, level):
         f = open("Levels/" + str(level))
@@ -104,5 +103,3 @@ class GameplayPlayState:
             brick.draw()
         wrapper.loadImage("buttonPause")
         wrapper.drawImage("buttonPause", 35, 100, 200, 83)
-        wrapper.draw_image("walls", 0, 0, 300, 700)
-        wrapper.draw_image("walls", 1000, 0, 300, 700)

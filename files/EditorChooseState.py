@@ -1,14 +1,15 @@
+import wrapper
 from button import Button
 
 
 class EditorChooseState:
     def __init__(self, editorScene):
         self.editorScene = editorScene
-        self.create_button = Button(500, 300, 140, 40, "Create new level!", "create")
+        self.create_button = Button(410, 300, 513, 100, "", "create")
         self.create_button.addActionReceiver(self)
-        self.load_button = Button(500, 400, 140, 40, "Load level", "load")
+        self.load_button = Button(500, 430, 420, 90, "", "load")
         self.load_button.addActionReceiver(self)
-        self.back_button = Button(500, 500, 140, 40, "Back", "back")
+        self.back_button = Button(10, 600, 220, 92, "", "back")
         self.back_button.addActionReceiver(self)
 
     def update(self):
@@ -17,9 +18,12 @@ class EditorChooseState:
         self.back_button.update()
 
     def draw(self):
-        self.create_button.draw()
-        self.load_button.draw()
-        self.back_button.draw()
+        wrapper.loadImage("buttonBack")
+        wrapper.drawImage("buttonBack", 10, 600, 220, 92)
+        wrapper.loadImage("buttonCreateNewLevel")
+        wrapper.drawImage("buttonCreateNewLevel", 410, 300, 513, 100)
+        wrapper.loadImage("buttonLoadLevel")
+        wrapper.drawImage("buttonLoadLevel", 500, 430, 420, 90)
 
     def to_create(self):
         self.editorScene.state = self.editorScene.STATE_CREATE
