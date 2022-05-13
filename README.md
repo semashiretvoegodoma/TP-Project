@@ -1,6 +1,6 @@
-ARKANOID 2
-
-How to run?
-
-Navigate files/main.py and just run it:
-python3 files/main.py
+# Arkanoid 2
+Наша реализация знаменитой игры.
+## Техническая документация:
+https://docs.google.com/document/d/1dkxjNEcsugXBOh21OQNEsQ2GPTdgtDCjlKn5DBst0RQ/edit
+## Запуск:
+Запустите файл .../TP-Project/files/main.py
