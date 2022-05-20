@@ -18,6 +18,7 @@ class Brick(object):
         wrapper.play_sound("explosion")
 
     def update(self, ball):
+        is_breaked_now = False
         left = max(self.x, ball.x - ball.radius)
         right = min(self.x + self.width, ball.x + ball.radius)
         top = max(self.y, ball.y - ball.radius)
@@ -25,10 +26,12 @@ class Brick(object):
         width = right - left
         height = bottom - top
         if width > 0 and height > 0 and self.state == self.SOLID:
+            is_breaked_now = True
             self.state = self.BROKEN
             self.renderer.to_breaking()
             self.sound()
         self.renderer.update()
+        return is_breaked_now
 
     def draw(self):
         self.renderer.draw()
