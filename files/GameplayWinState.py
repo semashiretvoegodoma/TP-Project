@@ -1,0 +1,2 @@
+class GameplayWinState(object):
+    pass
